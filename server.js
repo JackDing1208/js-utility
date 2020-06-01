@@ -1,20 +1,25 @@
-var express = require("express")
-var app = express()
+const express = require("express")
+const bodyParser=require('body-parser');
 
+
+const server = express()
 const port = 6666
-// app.get("/", (req, res) => {
-//   console.log(req.method)
-//   console.log(req.query)
-//   res.send("hello")
-// })
 
-app.post("/", (req, res) => {
+server.use(bodyParser.urlencoded({}))
+
+
+server.use("/",(req, res,next) => {
   console.log(req.method)
-  console.log(req)
-  res.send("world")
+  console.log(req.query)
+  console.log(req.body)
+  res.write("hello")
+  res.end()
+  next()
 })
 
 
-app.listen(port, () => {
+
+
+server.listen(port, () => {
   console.log(`server is watching port ${port}`)
 })
