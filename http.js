@@ -1,22 +1,23 @@
 const axios = require("axios")
 
-const CancelToken = axios.CancelToken
-const source = CancelToken.source()
+var CancelToken = axios.CancelToken
+var source = CancelToken.source()
+console.log(source.token)
+axios.get("http://localhost:6666", {
+  cancelToken: source.token,
+}).then((response) => {
+  console.log("response", response.data)
+})
+  .catch((error) => {
+    if (axios.isCancel(error)) {
+      console.log("cancel message", error.message)
+    } else {
+      console.log("error", error)
+    }
+  })
+// 取消请求
+// source.cancel('取消请求传递这条消息')
 
-axios.defaults.timeout = 3000
-
-// axios.get("http://localhost:6666", {
-//   cancelToken: source.token,
-//   params: {xxx: 1},
-// }).catch(function (thrown) {
-//   if (axios.isCancel(thrown)) {
-//     console.log("Request canceled", thrown)
-//   } else {
-// }
-// })
-
-axios.defaults.retry = 4
-axios.defaults.retryDelay = 1000
 
 // axios.interceptors.response.use(() => {}, function axiosRetryInterceptor(err) {
 //   var config = err.config
@@ -97,12 +98,11 @@ class Http {
       data: data,
     })
   }
-
 }
 
-
-Http.post("http://localhost:6666", {xxx: 1, yyy: 5}).then((res) => {
-  console.log(res.data)
-})
+//
+// Http.post("http://localhost:6666", {xxx: 1, yyy: 5}).then((res) => {
+//   console.log(res.data)
+// })
 
 
