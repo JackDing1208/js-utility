@@ -1,16 +1,16 @@
 const express = require("express")
 
 
-const server = express()
+const express = express()
 const port = 6666
 
 //官方新版本提供的解析请求体的中间件,不需要body-parser
-server.use(express.json())
-server.use(express.urlencoded())
+express.use(express.json())
+express.use(express.urlencoded())
 //默认的静态资源目录
-server.use(express.static("static"))
+express.use(express.static("static"))
 
-server.use("/", (req, res, next) => {
+express.use("/", (req, res, next) => {
   console.log(req.method)
   console.log(req.hostname)
   console.log(req.query, req.body)
@@ -24,6 +24,6 @@ server.use("/", (req, res, next) => {
 })
 
 
-server.listen(port, () => {
+express.listen(port, () => {
   console.log(`server is watching port ${port}`)
 })
