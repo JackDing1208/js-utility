@@ -1,20 +1,29 @@
 const axios = require("axios")
 
-var CancelToken = axios.CancelToken
-var source = CancelToken.source()
-console.log(source.token)
-axios.get("http://localhost:6666", {
-  cancelToken: source.token,
-}).then((response) => {
-  console.log("response", response.data)
+axios.post("http://localhost:6666", {
+  name: "xxx",
+  age: 66,
+}).then((res) => {
+  console.log(res.data)
+}).catch((err) => {
+  console.log(err)
 })
-  .catch((error) => {
-    if (axios.isCancel(error)) {
-      console.log("cancel message", error.message)
-    } else {
-      console.log("error", error)
-    }
-  })
+
+
+// var CancelToken = axios.CancelToken
+// var source = CancelToken.source()
+// axios.get("http://localhost:6666", {
+//   cancelToken: source.token,
+// }).then((response) => {
+//   console.log("response", response.data)
+// })
+//   .catch((error) => {
+//     if (axios.isCancel(error)) {
+//       console.log("cancel message", error.message)
+//     } else {
+//       console.log("error", error)
+//     }
+//   })
 // 取消请求
 // source.cancel('取消请求传递这条消息')
 
