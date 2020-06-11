@@ -12,7 +12,7 @@ app.use("/", (req, res, next) => {
   if (req.method === "GET") {
     models.User.findAll({raw: true}).then((userList) => {
       console.log(userList)
-      res.send({status: 200, data: userList})
+      res.status(200).send({data: userList})
     })
   } else if (req.method === "POST") {
     console.log(req.body)
